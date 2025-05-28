@@ -1,6 +1,46 @@
-# Getting Started with Create React App
+# My React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## CI/CD Pipeline
+
+このプロジェクトはGitHub Actionsを使用してCI/CDパイプラインを設定しています。
+
+### ワークフロー
+
+1. **Simple CI** (`.github/workflows/simple-ci.yml`)
+   - プッシュ・プルリクエスト時に自動実行
+   - 依存関係のインストール
+   - テストの実行
+   - ビルドの実行
+   - ビルド成果物のアーティファクト保存
+
+2. **Full CI/CD** (`.github/workflows/ci-cd.yml`)
+   - テスト実行
+   - Dockerイメージのビルドとプッシュ（GitHub Container Registry）
+   - GitHub Pagesへの自動デプロイ
+
+3. **AWS ECS + Fargate Deploy** (`.github/workflows/deploy-aws-ecs.yml`)
+   - テスト実行
+   - DockerイメージをAWS ECRにプッシュ
+   - AWS ECS + Fargateへの自動デプロイ
+
+### 必要な設定
+
+#### GitHub Pagesデプロイを有効にする場合：
+1. GitHubリポジトリの Settings → Pages
+2. Source を "GitHub Actions" に設定
+
+#### Docker イメージプッシュを有効にする場合：
+- 特別な設定は不要（GitHub Container Registryを使用）
+- プライベートリポジトリの場合、パッケージの可視性設定を確認
+
+#### AWS ECS + Fargateデプロイを有効にする場合：
+1. AWSアカウントの作成
+2. IAMユーザーとロールの設定
+3. ECR、ECS、Fargateリソースの作成
+4. GitHubシークレットの設定
+5. 詳細は `AWS_ECS_SETUP.md` を参照
 
 ## Available Scripts
 
